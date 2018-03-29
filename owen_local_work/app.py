@@ -39,6 +39,21 @@ def index():
     return render_template('index.html')
 
 # Pie Chart
+@app.route("/pie")
+def learning():
+    results = session.query(Hacker.RespondentID, Hacker.CountryNumeric2, Hacker.q6LearnCodeUni1, Hacker.q6LearnCodeSelfTaught1, Hacker.q6LearnCodeAccelTrain1, 
+    Hacker.q6LearnCodeDontKnowHowToYet1, Hacker.q6LearnCodeOther1).all()
+
+    ids = [row[0] for row in results]
+    countries = [row[1] for row in results]
+    uni = [row[2] for row in results]
+    self_taught = [row[3] for row in results]
+    accelerated = [row[4] for row in results]
+    dont_know = [row[5] for row in results]
+    other = [row[6] for row in results]
+
+    return jsonify([{'respondent_ids': ids, 'countries': countries, 'uni': uni, 'self_taught': self_taught, 
+    'accelerated': accelerated, "dont know": dont_know, "other": other }])
 
 # Bar Chart
 @app.route("/countries")
