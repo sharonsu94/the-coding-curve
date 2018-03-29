@@ -44,13 +44,14 @@ def index():
 # Bar Chart
 @app.route("/bar")
 def ages():
-    results = session.query(Hacker.RespondentID, Hacker.q1AgeBeginCoding).all()#.\
+    results = session.query(Hacker.q3Gender1, Hacker.q1AgeBeginCoding, Hacker.CountryNumeric2).all()#.\
         # func.distinct(Names.id).all()
 
     ids = [row[0] for row in results]
     ages = [row [1] for row in results]
+    countries = [row[2] for row in results]
 
-    return jsonify([{'respondent_ids': ids, 'ages_began': ages}])
+    return jsonify([{'respondent_ids': ids, 'ages_began': ages, 'countries': countries}])
 # Bubble Chart
 
 if __name__ == "__main__":
