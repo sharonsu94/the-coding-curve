@@ -45,6 +45,7 @@ def index():
 def country():
     results = session.query(Hacker.CountryNumeric2).distinct()#.\
         # func.distinct(Hacker.CountryNumeric2).all()
+    results = results.order_by(Hacker.CountryNumeric2)
 
     countries = [row[0] for row in results]
 
