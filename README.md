@@ -4,7 +4,7 @@ We are analyzing the different methods people learned to code, the ages they beg
 We are also analyzing how this differs across different countries. 
 
 ## Team Members
-Charlie
+Charlie \n
 Owen
 Sharon
 
