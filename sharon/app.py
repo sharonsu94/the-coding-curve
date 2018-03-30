@@ -25,16 +25,17 @@ Hacker = Base.classes.hacker
 
 session = Session(engine)
 
-@app.before_first_request
-def setup():
-    db.drop_all()
-    db.create_all()
+# @app.before_first_request
+# def setup():
+#     # Recreate database each time for demo
+#     #db.drop_all()
+#     db.create_all()
+
 
 # Flask Routes
 # Homepage
 @app.route('/')
 def index():
-    data = pd.read_csv('data.csv')
     return render_template('index.html')
 
 # Pie Chart
@@ -56,10 +57,31 @@ def learning(country):
     other = [row[6] for row in results]
     total_other = other.count(1)
 
+    return jsonify([total_accelerated, total_dont, total_other, total_self, total_uni])
 
-    return jsonify([{'uni': str(total_uni), 'self_taught': str(total_self),'accelerated': str(total_accelerated), 
-    "dont know": str(total_dont), "other": str(total_other)}])
+# Bar Chart
+@app.route("/countries")
+def country():
+    results = session.query(Hacker.CountryNumeric2).distinct()#.\
+        # func.distinct(Hacker.CountryNumeric2).all()
+    results = results.order_by(Hacker.CountryNumeric2)
+
+    countries = [row[0] for row in results]
+
+    return jsonify(countries)
+
+
+@app.route("/bar")
+def ages():
+    results = session.query(Hacker.RespondentID, Hacker.q1AgeBeginCoding, Hacker.CountryNumeric2).all()#.\
+        # func.distinct(Names.id).all()
+
+    ids = [row[0] for row in results]
+    ages = [row [1] for row in results]
+    countries = [row[2] for row in results]
+
+    return jsonify([{'respondent_ids': ids, 'ages_began': ages, 'countries': countries}])
+# Bubble Chart
 
 if __name__ == "__main__":
     app.run(debug=True)
-    
