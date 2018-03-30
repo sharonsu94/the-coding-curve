@@ -18,6 +18,6 @@ Sharon
 Hackkerank Survey: https://www.kaggle.com/hackerrank/developer-survey-2018/data
 
 
-#### Final integrated project
+## Final integrated project
 
-Presentation: 
+Presentation: https://docs.google.com/presentation/d/1Qon0Ati8YJhOOfhYgUwq13d_2Od7XYfmZzbVIR_MwII/edit?usp=sharing
