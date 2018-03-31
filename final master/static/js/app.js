@@ -75,7 +75,7 @@
             height: 500,
             width: 1050,
             xaxis: {
-                title: "Hiring mamagers think it's important",
+                title: "Programming Languages Hiring Managers View as Important",
                 titlefont: {
                     color: "blue",
                     family: "italic",
@@ -83,7 +83,7 @@
                 },
             },
             yaxis: {
-                title: "How many engineers know it",
+                title: "Programming Languages Engineers are Proficient in",
                 titlefont: {
                     color: "blue",
                     family: "italic",
