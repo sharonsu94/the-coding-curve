@@ -1,6 +1,6 @@
 # The Coding Curve
 
-The purpose of this project was to analyze the different methods people learned to code, the ages they began coding, and perspective towards different programming languages. 
+The purpose of this project was to analyze the different methods people learned to code, the ages they began coding, and perspectives towards different programming languages. 
 
 ## Team Members
 Charlie  
