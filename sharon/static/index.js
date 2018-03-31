@@ -1,48 +1,40 @@
-// Create a function to add dropdown list and plotly charts
-function optionChanged() {
-    d3.json("/countries", function(error, response){
-        if (error) return console.warn(error);
-        var selDataset = document.getElementById("selDataset");
-        for (var i=0; i < response.length; i++) {
-            var option = document.createElement("option");
-            option.value = response[i];  
-            option.innerHTML = response[i];
-            selDataset.appendChild(option);
-        }
-
-        // create function for pie chart 
-        function init(selDataset) {
-            var country = selDataset.value;
-            var url1 = "/pie/" + country;
-            Plotly.d3.json(url1, function(error, response) {
-                var pie_value = response;
-                var pie_labels = ['Accelerated Training', 'Dont Know How to Yet', 'Other', 'Self-Taught', 'School or University'];
-     
-                    // create pie chart
-                    var trace1 = {
-                        type: "pie",
-                        values: pie_value,
-                        labels: pie_labels,
-                    };
-            
-                    var data = [trace1];
-            
-                    var layout = {
-                        title: "Methods People Learned to Code",
-                        height: 500,
-                        width: 800,    
-                    };
-                    Plotly.newPlot("pie", data, layout);  
-                })    
-            }
-        init(selDataset);  
-        }); 
+function init() {
+    var trace1 = {
+        values: [1, 1, 1, 1, 1],
+        labels: ['Accelerated Training', 'Dont Know How to Yet', 'Other', 'Self-Taught', 'School or University'],
+        type: 'pie'
     }
-// Show plots when open the page
-optionChanged();
-
-// Create function to update plots
-function updatePlot(newcountry) {
-    var Pie = document.getElementById("pie");
-    Plotly.restyle(Pie, "values", newcountry);
+    var data = [trace1];
+            
+    var layout = {
+        title: "Methods People Learned to Code",
+        height: 500,
+        width: 800,    
+    };
+    Plotly.newPlot("pie", data, layout);  
 };
+
+init();
+
+function updatePlot(newdata) {
+    var Pie = document.getElementById("pie");
+    // console.log(Pie)
+    Plotly.restyle("pie", newdata);
+};
+
+function optionChanged(country) {
+    var url = "/pie/" + country;
+    Plotly.d3.json(url, function(error, response) {
+        console.log(response)
+            var trace1 = {
+                type: "pie",
+                values: response,
+                labels: ['Accelerated Training', 'Dont Know How to Yet', 'Other', 'Self-Taught', 'School or University'],
+            };
+            
+            var data_pie = trace1;
+            console.log(data_pie)
+            updatePlot(data_pie)
+})};
+
+optionChanged("United States");

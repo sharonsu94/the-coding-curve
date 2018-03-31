@@ -10,6 +10,9 @@ from sqlalchemy import create_engine, MetaData
 import os
 from sqlalchemy.orm import Session
 
+from itertools import chain
+from operator import methodcaller
+
 # Flask Setup
 app = Flask(__name__)
 
@@ -51,6 +54,15 @@ def country():
 
     return jsonify(countries)
 
+# @app.route("/countries/<country>")
+# def selection(country):
+#     results = session.query(Hacker.RespondentID, Hacker.CountryNumeric2).filter(Hacker.CountryNumeric2 == country).\
+#         order_by(Hacker.RespondentID.desc()).all()
+
+#     ids = [row[0] for row in results]
+#     countries = [row[1] for row in results]
+
+#     return jsonify([{'ids': ids, 'countries': countries}])
 
 @app.route("/bar")
 def ages():
@@ -62,6 +74,39 @@ def ages():
     countries = [row[2] for row in results]
 
     return jsonify([{'respondent_ids': ids, 'ages_began': ages, 'countries': countries}])
+
+@app.route("/bar/<country>")
+def ages_country(country):
+    results = session.query(Hacker.RespondentID, Hacker.q1AgeBeginCoding, Hacker.CountryNumeric2, Hacker.q3Gender).\
+    filter(Hacker.CountryNumeric2 == country, Hacker.q1AgeBeginCoding != '#NULL!').all()
+
+    ages = [row[1] for row in results]
+    count = [[x, ages.count(x)] for x in set(ages)]
+    ages = [row[0] for row in count]
+    age_counts = [row[1] for row in count]
+
+    # ages_count = [{x: ages.count(x)} for x in set(ages)]
+    # ages_count = dict(chain.from_iterable(map(methodcaller('items'), ages_count)))
+    countries = [row[2] for row in results]
+
+    female_results = session.query(Hacker.RespondentID, Hacker.q1AgeBeginCoding, Hacker.CountryNumeric2, Hacker.q3Gender).\
+    filter(Hacker.CountryNumeric2 == country, Hacker.q1AgeBeginCoding != '#NULL!', Hacker.q3Gender == 'Female').all()
+
+    female_ages = [row[1] for row in female_results]
+    female_count = [[x, female_ages.count(x)] for x in set(female_ages)]
+    female_ages = [row[0] for row in female_count]
+    female_age_counts = [row[1] for row in female_count]
+
+    male_results = session.query(Hacker.RespondentID, Hacker.q1AgeBeginCoding, Hacker.CountryNumeric2, Hacker.q3Gender).\
+    filter(Hacker.CountryNumeric2 == country, Hacker.q1AgeBeginCoding != '#NULL!', Hacker.q3Gender == 'Male').all()
+
+    male_ages = [row[1] for row in male_results]
+    male_count = [[x, male_ages.count(x)] for x in set(male_ages)]
+    male_ages = [row[0] for row in male_count]
+    male_age_counts = [row[1] for row in male_count]
+
+    return jsonify(ages, age_counts, female_ages, female_age_counts, male_ages, male_age_counts)
+
 # Bubble Chart
 
 if __name__ == "__main__":
