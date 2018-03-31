@@ -14,9 +14,11 @@ Sharon
 4. A Select Option for Different Countries
 
 ## Dataset
-- Hackkerank Survey: https://www.kaggle.com/hackerrank/developer-survey-2018/data
+- Hackkerank Survey: 
+  https://www.kaggle.com/hackerrank/developer-survey-2018/data
 
 
 ## Final integrated project
 
-- Main Deck: https://docs.google.com/presentation/d/1Qon0Ati8YJhOOfhYgUwq13d_2Od7XYfmZzbVIR_MwII/edit?usp=sharing
+- Main Deck: 
+  https://docs.google.com/presentation/d/1Qon0Ati8YJhOOfhYgUwq13d_2Od7XYfmZzbVIR_MwII/edit?usp=sharing
