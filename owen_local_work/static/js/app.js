@@ -6,14 +6,14 @@ function init() {
         type: 'bar'
       };
       
-      var trace2 = {
-        x: ['giraffes', 'orangutans', 'monkeys'],
-        y: [12, 18, 29],
-        name: 'LA Zoo',
-        type: 'bar'
-      };
+    //   var trace2 = {
+    //     x: ['giraffes', 'orangutans', 'monkeys'],
+    //     y: [12, 18, 29],
+    //     name: 'LA Zoo',
+    //     type: 'bar'
+    //   };
       
-      var data = [trace1, trace2];
+      var data = trace1;
       
       var layout = {barmode: 'group'};
       
@@ -23,10 +23,9 @@ function init() {
   init();
   
   function updatePlotlyBar(newdata) {
-      console.log('Data:', newdata[0]);
-      console.log('Data2:', newdata[1]);
+      console.log('Data:', newdata);
     var BAR = document.getElementById('bar');
-    Plotly.restyle(BAR, newdata[0], newdata[1]);
+    Plotly.restyle(BAR, newdata);
   }
   
   function optionChanged(country) {
@@ -37,22 +36,22 @@ function init() {
   
       var trace1 = {
           type: 'bar',
-          y: [response[3]],
-          x: [response[2]],
-          name: 'female'
+          y: [response[1]],
+          x: [response[0]],
+          name: 'all'
         //   barmode: 'group',
       };
 
-      var trace2 = {
-          type: 'bar',
-          y: [response[5]],
-          x: [response[4]],
-          name: 'male'
-        //   hovertext: country,
-        //   barmode: 'group',
-      };
+    //   var trace2 = {
+    //       type: 'bar',
+    //       y: [response[5]],
+    //       x: [response[4]],
+    //       name: 'male'
+    //     //   hovertext: country,
+    //     //   barmode: 'group',
+    //   };
   
-      var data_bar = [trace1, trace2];
+      var data_bar = trace1;
        updatePlotlyBar(data_bar);
   });
     //   d3.json(url_meta, function(error, response) {
