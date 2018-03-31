@@ -91,7 +91,7 @@ def bubble(country):
     l_list = [sum([row[k] for row in sentiment if row[k] == 1]) for k in range(len(sentiment[0]))]
     h_list = [sum([row[l] for row in sentiment if row[l] == 2]) for l in range(len(sentiment[0]))]
     s_list = list(zip(l_list, h_list))
-    s_list = [round((m[0]/(m[0]+m[1])*100), 2) for m in s_list]
+    s_list = [round((m[0]/(m[0]+m[1])*100), 2) if (m[0]+m[1])>0 else (m[0]+m[1])==1 for m in s_list]
     p_list = ["C", "C++", "Java", "Python", "Ruby", "JavaScrpit", "Sharp", "Go", "Scala", "Perl", "Swift", 
             "Pascal", "Clojure", "PHP", "Haskell", "Lua", "R"]
     color_list = ["#555555", "#f34b7d", "#b07219", "#3572A5", "#701516", "#f1e05a", "#178600", "#375eab", "#c22d40", "#0298c3", "#ffac45",
