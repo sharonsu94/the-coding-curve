@@ -100,7 +100,7 @@ function init() {
     })    
 };
 
-initialize("Yemen");
+initialize("United States");
 
 
   function updatePlotlyPie(newdata) {
@@ -122,7 +122,6 @@ initialize("Yemen");
     var update = {"marker": {size: newcountry.sentiment, color: newcountry.sentiment,
                 colorscale: "RdBu", showscale: true}};
     Plotly.restyle(Bubble, update);
-    // Plotly.restyle(Bubble, "z", [newcountry.sentiment]);
 }
 
 
