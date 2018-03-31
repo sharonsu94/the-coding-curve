@@ -11,12 +11,10 @@ function init(country) {
         bubble_size.forEach(element => {
             love_hate.push(element.toString()+"%");
         });
-        var x = [];
-        var text = bubble_title.forEach(d => {
-            love_hate.forEach(e => {
-            x.push(d+" Love:"+e);
-            })
-        })
+        var text = [];
+        for (var i=0; i<bubble_title.length; i++) {
+            text.push(bubble_title[i]+"  Love:"+love_hate[i]);
+        }
         //create bubble 2D plot
         var trace_bubble = {
             x: bubble_x,
@@ -29,7 +27,7 @@ function init(country) {
                 colorscale: "RdBu",
                 showscale: true,
             },
-            text: x, 
+            text: text, 
         };
 
         var data_bubble = [trace_bubble];
@@ -40,7 +38,6 @@ function init(country) {
                 size: 30,
             },
             bgcolor: "#D3D3D3",
-            // showbackground: true,
             height: 500,
             width: 1050,
             xaxis: {
@@ -61,70 +58,10 @@ function init(country) {
             },
         };
         Plotly.newPlot("bubble", data_bubble, layout_bubble);    
-
-
-        // //create bubble 3D plot
-        // var trace_bubble = {
-        //     x: bubble_x,
-        //     y: bubble_y,
-        //     z: bubble_size,
-        //     mode: "markers",
-        //     type: "scatter3d",
-        //     marker: {
-        //         size: bubble_size,
-        //         color: bubble_color,
-        //     },
-        //     text: bubble_title,    
-        // };
-
-        // var data_bubble = [trace_bubble];
-
-        // var layout_bubble = {
-        //     title: "Survey of Software Engineers",
-        //     height: 600,
-        //     width: 1050,
-        //     scene: {
-        //     xaxis: {
-        //         title: "Importance",
-        //         backgroundcolor: "#D3D3D3",
-        //         showbackground: true,
-        //         gridcolor: "#FFFFFF",
-        //         titlefont: {
-        //             color: "blue",
-        //             family: "italic",
-        //             size: 20,
-        //         },
-        //     },
-        //     yaxis: {
-        //         title: "Know",
-        //         backgroundcolor: "#D3D3D3",
-        //         showbackground: true,
-        //         gridcolor: "#FFFFFF",
-        //         titlefont: {
-        //             color: "blue",
-        //             family: "italic",
-        //             size: 20,
-        //         },
-        //     },
-        //     zaxis: {
-        //         title: "Love %",
-        //         ticksuffix: '%',
-        //         backgroundcolor: "#D3D3D3",
-        //         showbackground: true,
-        //         gridcolor: "#FFFFFF",
-        //         titlefont: {
-        //             color: "blue",
-        //             family: "italic",
-        //             size: 20,
-        //         },
-        //     },
-        // },
-        // };
-        // Plotly.newPlot("bubble", data_bubble, layout_bubble);
     })    
 };
 
-init("United States");
+init("Yemen");
 
 // create function to update plots
 function updatePlot(newcountry) {
