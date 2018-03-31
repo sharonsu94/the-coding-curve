@@ -33,7 +33,7 @@
     <script type="text/javascript">
         var queryURL = "http://127.0.0.1:5000/countries";
         d3.json(queryURL, function(error, response) {
-          console.log(response);
+        //   console.log(response);
           var select = document.getElementById("selDataset")
           for(var i = 0; i < response.length; i++){
               var item = response[i];
@@ -53,32 +53,30 @@
                         </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-6">
                         <div class="well">
                             <h5>SELECT Country:</h5>
                             <select id="selDataset" onchange="optionChanged(this.value)"></select>
                         </div>
 
                     </div>
-                    <div class="col-md-6">
+                    <!-- <div class="col-md-6">
                         <div id="pie"></div>
-                    </div>
+                    </div> -->
 
                     <div class="col-md-6">
                         <div id="bar"></div>
                     </div>
-
-                    </div>
                 </div>
-            </div>
-    <div class="container">
+        </div>
+    <!-- <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <div id="bubble"></div>
+                <div id="scatter"></div>
             </div>
         </div>
-    </div>
+    </div> -->
 
-    <!-- <script src="../static/index.js" type="text/javascript"></script> -->
+    <script src="{{ url_for('static', filename='js/app.js') }}" type="text/javascript"></script>
 </body>
 </html>
