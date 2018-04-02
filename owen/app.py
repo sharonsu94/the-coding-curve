@@ -10,8 +10,9 @@ from sqlalchemy import create_engine, MetaData
 import os
 from sqlalchemy.orm import Session
 
-from itertools import chain
-from operator import methodcaller
+# from itertools import chain
+# from operator import methodcaller
+from orderedset import OrderedSet
 
 # Flask Setup
 app = Flask(__name__)
@@ -98,11 +99,14 @@ def ages():
 
 @app.route("/bar/<country>")
 def ages_country(country):
-    results = session.query(Hacker.RespondentID, Hacker.q1AgeBeginCoding, Hacker.CountryNumeric2, Hacker.q3Gender).\
+    results = session.query(Hacker.RespondentID, Hacker.q1AgeBeginCoding, Hacker.CountryNumeric2, Hacker.q3Gender, Hacker.q1AgeBeginCoding1).\
+    order_by(Hacker.q1AgeBeginCoding1.asc()).\
     filter(Hacker.CountryNumeric2 == country, Hacker.q1AgeBeginCoding != '#NULL!').all()
 
     ages = [row[1] for row in results]
-    count = [[x, ages.count(x)] for x in set(ages)]
+    order = [row[4] for row in results]
+    order = list(OrderedSet(order))
+    count = [[x, ages.count(x)] for x in OrderedSet(ages)]
     ages = [row[0] for row in count]
     age_counts = [row[1] for row in count]
 
