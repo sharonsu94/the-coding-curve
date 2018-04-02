@@ -80,7 +80,7 @@ function init() {
             height: 500,
             width: 1050,
             xaxis: {
-                title: "Hiring mamagers think it's important",
+                title: "Hiring managers think it's important",
                 titlefont: {
                     color: "blue",
                     family: "italic",

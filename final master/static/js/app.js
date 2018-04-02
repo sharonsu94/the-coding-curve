@@ -1,4 +1,4 @@
-  function init() {
+function init() {
     var data = [
         {
           values: [1],
@@ -7,6 +7,10 @@
         },
       ];
     
+    var layout = {
+        title: 'Method of Learning',
+    };
+
       Plotly.plot('pie', data, layout);
 
     var data_bar = [
@@ -18,16 +22,17 @@
       },
     ];
 
-    var layout = {
+    var layout_bar = {
       xaxis: {
-          title: 'Age Began Coding'
+          title: 'Age Range'
       },
       yaxis: {
           title: 'Count'
       },
+      title: 'Age Began Coding',
     };
   
-    Plotly.plot('bar', data_bar);
+    Plotly.plot('bar', data_bar, layout_bar);
   }
   
   init();
@@ -75,7 +80,7 @@
             height: 500,
             width: 1050,
             xaxis: {
-                title: "Programming Languages Hiring Managers View as Important",
+                title: "Hiring managers think it's important",
                 titlefont: {
                     color: "blue",
                     family: "italic",
@@ -83,7 +88,7 @@
                 },
             },
             yaxis: {
-                title: "Programming Languages Engineers are Proficient in",
+                title: "How many engineers know it",
                 titlefont: {
                     color: "blue",
                     family: "italic",

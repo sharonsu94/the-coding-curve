@@ -2,16 +2,13 @@
 from flask import Flask,render_template,jsonify
 import pandas as pd
 
-# from sqlalchemy import func
 from flask_sqlalchemy import SQLAlchemy
 import sqlalchemy
 from sqlalchemy.ext.automap import automap_base
 from sqlalchemy import create_engine, MetaData
 import os
 from sqlalchemy.orm import Session
-
-from itertools import chain
-from operator import methodcaller
+from orderedset import OrderedSet
 
 # Flask Setup
 app = Flask(__name__)
@@ -28,9 +25,7 @@ Hacker = Base.classes.hacker
 
 session = Session(engine)
 
-
 # Flask Routes
-# Homepage
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -63,18 +58,29 @@ def learning(country):
 def country():
     results = session.query(Hacker.CountryNumeric2).distinct()
     results = results.order_by(Hacker.CountryNumeric2)
-
     countries = [row[0] for row in results]
 
     return jsonify(countries)
 
+@app.route("/bar")
+def ages():
+    results = session.query(Hacker.RespondentID, Hacker.q1AgeBeginCoding, Hacker.CountryNumeric2).all()
+    ids = [row[0] for row in results]
+    ages = [row [1] for row in results]
+    countries = [row[2] for row in results]
+
+    return jsonify([{'respondent_ids': ids, 'ages_began': ages, 'countries': countries}])
+
 @app.route("/bar/<country>")
 def ages_country(country):
-    results = session.query(Hacker.RespondentID, Hacker.q1AgeBeginCoding, Hacker.CountryNumeric2, Hacker.q3Gender).\
+    results = session.query(Hacker.RespondentID, Hacker.q1AgeBeginCoding, Hacker.CountryNumeric2, Hacker.q3Gender, Hacker.q1AgeBeginCoding1).\
+    order_by(Hacker.q1AgeBeginCoding1.asc()).\
     filter(Hacker.CountryNumeric2 == country, Hacker.q1AgeBeginCoding != '#NULL!').all()
 
     ages = [row[1] for row in results]
-    count = [[x, ages.count(x)] for x in set(ages)]
+    order = [row[4] for row in results]
+    order = list(OrderedSet(order))
+    count = [[x, ages.count(x)] for x in OrderedSet(ages)]
     ages = [row[0] for row in count]
     age_counts = [row[1] for row in count]
 
@@ -109,7 +115,7 @@ def bubble(country):
     h_list = [sum([row[l] for row in sentiment if row[l] == 2]) for l in range(len(sentiment[0]))]
     s_list = list(zip(l_list, h_list))
     s_list = [round((m[0]/(m[0]+m[1])*100), 2) if (m[0]+m[1])>0 else (m[0]+m[1])==1 for m in s_list]
-    p_list = ["C", "C++", "Java", "Python", "Ruby", "JavaScrpit", "Sharp", "Go", "Scala", "Perl", "Swift", 
+    p_list = ["C", "C++", "Java", "Python", "Ruby", "JavaScript", "Sharp", "Go", "Scala", "Perl", "Swift", 
             "Pascal", "Clojure", "PHP", "Haskell", "Lua", "R"]
     color_list = ["#555555", "#f34b7d", "#b07219", "#3572A5", "#701516", "#f1e05a", "#178600", "#375eab", "#c22d40", "#0298c3", "#ffac45",
             "E3F171", "#db5855", "#4F5D95", "#5e5086", "#000080", "#198CE7"]
