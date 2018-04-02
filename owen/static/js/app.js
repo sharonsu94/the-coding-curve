@@ -1,12 +1,4 @@
-// $('.flexdatalist').flexdatalist({
-//     minLength: 2,
-//     valueProperty: '*',
-//     visibleProperties: ["name","capital","continent"],
-//     searchIn: 'name',
-//     data: 'response.json'
-// });  
-  
-  function init() {
+function init() {
     var data = [
         {
           values: [1],
@@ -15,6 +7,10 @@
         },
       ];
     
+    var layout = {
+        title: 'Method of Learning',
+    };
+
       Plotly.plot('pie', data, layout);
 
     var data_bar = [
@@ -26,16 +22,17 @@
       },
     ];
 
-    var layout = {
+    var layout_bar = {
       xaxis: {
-          title: 'Age Began Coding'
+          title: 'Age Range'
       },
       yaxis: {
           title: 'Count'
       },
+      title: 'Age Began Coding',
     };
   
-    Plotly.plot('bar', data_bar);
+    Plotly.plot('bar', data_bar, layout_bar);
   }
   
   init();
