@@ -119,9 +119,23 @@ initialize("United States");
     var Bubble = document.getElementById("bubble");
     Plotly.restyle(Bubble, "x", [newcountry.competency]);
     Plotly.restyle(Bubble, "y", [newcountry.know]);
-    var update = {"marker": {size: newcountry.sentiment, color: newcountry.sentiment,
+    var bubble_size = newcountry.sentiment;
+    var bubble_title = newcountry.languages;
+    var update = {"marker": {size: bubble_size, color: bubble_size,
                 colorscale: "RdBu", showscale: true}};
+    
     Plotly.restyle(Bubble, update);
+    var love_hate_1 = [];
+    bubble_size.forEach(element => {
+        love_hate_1.push(element.toString()+"%");
+    });
+    var text1 = [];
+    for (var i=0; i<bubble_title.length; i++) {
+        text1.push(bubble_title[i]+"  Love:"+love_hate_1[i]);
+    }
+    console.log(text1);
+    console.log(love_hate_1);
+    Plotly.restyle(Bubble, "text", [text1]);
 }
 
 
